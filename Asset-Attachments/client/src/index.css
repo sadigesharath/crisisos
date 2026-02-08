@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Base - Slate 950/900 for deep dashboard look */
+  --background: 222 47% 11%;
+  --foreground: 210 40% 98%;
+
+  /* Primary - Vivid Blue for Actions */
+  --primary: 217 91% 60%;
+  --primary-foreground: 222 47% 11%;
+
+  /* Cards - Slightly lighter slate */
+  --card: 217 33% 17%;
+  --card-foreground: 210 40% 98%;
+  --card-border: 217 33% 25%;
+
+  /* UI Elements */
+  --popover: 222 47% 11%;
+  --popover-foreground: 210 40% 98%;
+  
+  --muted: 217 33% 20%;
+  --muted-foreground: 215 20% 65%;
+  
+  --accent: 217 33% 25%;
+  --accent-foreground: 210 40% 98%;
+
+  --destructive: 0 63% 31%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 217 33% 20%;
+  --input: 217 33% 20%;
+  --ring: 217 91% 60%;
+
+  /* Semantic Severity Colors */
+  --severity-low: 142 71% 45%;      /* Green */
+  --severity-moderate: 35 92% 55%;  /* Amber */
+  --severity-high: 20 90% 60%;      /* Orange */
+  --severity-critical: 0 84% 60%;   /* Red */
+
+  /* Fonts */
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased selection:bg-primary/30 selection:text-primary-foreground;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
+  }
+}
+
+/* Custom Scrollbar for dashboard feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-background;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-border rounded-full hover:bg-accent;
+}
+
+/* Glassmorphism utilities */
+.glass-panel {
+  @apply bg-card/90 backdrop-blur-md border border-white/5 shadow-xl;
+}
+
+.scanline {
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+  background-size: 100% 4px;
+  pointer-events: none;
+}

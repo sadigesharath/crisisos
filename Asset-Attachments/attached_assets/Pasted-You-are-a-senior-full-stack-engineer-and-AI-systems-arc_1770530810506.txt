@@ -1,0 +1,150 @@
+You are a senior full-stack engineer and AI systems architect.
+
+Build a production-ready MVP called “CrisisOS”.
+
+CrisisOS is an autonomous, stateful AI system that continuously reasons over crisis signals and recommends actions with explanations. This is NOT a chatbot.
+
+========================
+CORE REQUIREMENTS
+========================
+
+1. Tech Stack
+- Next.js (App Router)
+- Node.js
+- JavaScript (no TypeScript)
+- Gemini 3 API (Google Generative AI)
+- Tailwind CSS for UI
+- Must run on:
+  - Localhost
+  - Replit
+  - Vercel
+  - VS Code
+
+2. Environment Variables
+- Read Gemini API key from:
+  process.env.GEMINI_API_KEY
+
+3. Project Structure
+- app/page.js → main UI
+- app/api/analyze/route.js → Gemini reasoning endpoint
+- lib/crisisState.js → persistent in-memory crisis state
+- lib/gemini.js → Gemini client wrapper
+- README.md with setup instructions
+
+========================
+FUNCTIONAL BEHAVIOR
+========================
+
+CrisisOS must work in a LOOP, not one-shot.
+
+The system must:
+
+1. Accept crisis signals from the user:
+   - Signal type (Weather Alert / Satellite Summary / Situation Report)
+   - Free-text description
+
+2. Maintain a persistent “Crisis State” object containing:
+   - crisisType
+   - location
+   - severityLevel (Low, Moderate, High, Critical)
+   - confidence (0–100%)
+   - evidence (array of key facts)
+   - recommendedActions (array)
+   - risksAndUncertainties
+   - lastUpdated
+
+This state must persist across multiple user submissions (in-memory is fine for MVP).
+
+3. On each new signal:
+   - Compare the signal with the existing crisis state
+   - Detect escalation, de-escalation, or contradiction
+   - Update severity and confidence
+   - Update recommended actions
+   - Explain reasoning clearly
+
+========================
+GEMINI REASONING
+========================
+
+Gemini must be used as a REASONING ENGINE, not a chatbot.
+
+SYSTEM PROMPT (must be used exactly):
+
+“You are CrisisOS, an autonomous crisis reasoning system.
+You maintain a persistent internal crisis state across time.
+You do not reset context between inputs.
+
+For each new signal:
+1. Compare it with the existing crisis state
+2. Detect escalation, de-escalation, or contradiction
+3. Update severity and confidence
+4. Recommend actions
+5. Explain reasoning clearly
+6. Identify risks and uncertainties
+
+Always output structured JSON with:
+- updatedState
+- recommendedActions
+- reasoning
+- risksAndUncertainties”
+
+========================
+API RESPONSE FORMAT
+========================
+
+The /api/analyze endpoint must return:
+
+{
+  "crisisState": { ... },
+  "recommendedActions": [ ... ],
+  "reasoning": "...",
+  "risksAndUncertainties": "..."
+}
+
+========================
+UI REQUIREMENTS
+========================
+
+The UI must have:
+
+- Title: “CrisisOS”
+- Subtitle: “Autonomous Crisis Reasoning System”
+- Input form:
+  - Dropdown for signal type
+  - Textarea for signal description
+  - Submit button: “Process Signal”
+
+- Output sections:
+  - Current Crisis State (formatted)
+  - Recommended Actions (bullet list)
+  - Reasoning Explanation
+  - Risks & Uncertainties
+
+UI must clearly show that:
+- The state updates over time
+- Recommendations change as new signals are added
+
+========================
+DEPLOYMENT
+========================
+
+- App must run with:
+  npm install
+  npm run dev
+
+- Must be deployable to Vercel with no code changes
+- Include README with:
+  - Local setup
+  - Replit setup
+  - Vercel deployment steps
+
+========================
+IMPORTANT CONSTRAINTS
+========================
+
+- Do NOT build a chatbot UI
+- Do NOT summarize input only
+- Do NOT reset state on every request
+- Focus on reasoning over time
+
+Build the full working project now.
